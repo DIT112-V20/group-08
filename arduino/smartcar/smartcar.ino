@@ -116,7 +116,7 @@ void handleInput()
     int back = sensorB.getDistance(); 
     int front = sensor.readRangeContinuousMillimeters();
 
-    while(front != 0 && front < 200 || back != 0 && back < 20) { 
+    while ((front != 0 && front < 200) || (back != 0 && back < 20)) { 
 
         unsigned long currentTime = millis();
         if (currentTime > previousToggle + 95){
@@ -127,7 +127,7 @@ void handleInput()
             previousToggle = currentTime;
         }
 
-        if(input == 'x' && front != 0 && front < 200){
+        if (input == 'x' && front != 0 && front < 200){
             rotateOnSpot(-180, 80);
         }
         else if(input == 'y' && back != 0 && back < 20){
