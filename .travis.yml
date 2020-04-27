@@ -1,4 +1,4 @@
-language: c
+language: cpp
 sudo: false
 cache:
   directories:
@@ -33,7 +33,7 @@ install:
 
 script:
    - python run-clang-format.py -r .
-   - build_main_platforms
+   - build_platform esp32
 
 # Generate and deploy documentation
 after_success:
