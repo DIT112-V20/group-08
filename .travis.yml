@@ -22,7 +22,7 @@ before_install:
 install:
     - arduino --install-library "Smartcar shield" 
     - arduino --install-library "VL53L0X" 
-    - arduino --install-library "Wire" 
+   
 
 script:
    - build_main_platforms
