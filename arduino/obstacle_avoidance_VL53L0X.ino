@@ -7,6 +7,7 @@ The range readings are in units of mm. */
 #include <Wire.h>
 #include <VL53L0X.h>
 #include <Smartcar.h>
+#include <BluetoothSerial.h>
 
 VL53L0X sensor;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
