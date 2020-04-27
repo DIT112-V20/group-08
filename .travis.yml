@@ -20,7 +20,10 @@ before_install:
    - curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/run-clang-format.py > run-clang-format.py
 
 install:
-   - arduino --install-library "Smartcar shield", "VL53L0X", "BluetoothSerial", "Wire" 
+    - arduino --install-library "Smartcar shield" 
+    - arduino --install-library "VL53L0X" 
+    - arduino --install-library "BluetoothSerial" 
+    - arduino --install-library "Wire" 
 
 script:
    - build_main_platforms
