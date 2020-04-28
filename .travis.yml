@@ -7,23 +7,15 @@ cache:
 git:
   depth: false
   quiet: true
-addons:
-  apt:
-    sources:
-      - llvm-toolchain-trusty-5.0
-      - key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    packages:
-      - clang-format-5.0
 env:
   global:
     - ARDUINO_IDE_VERSION="1.8.11"
      - PRETTYNAME="Adafruit FT6206 Arduino Library"
 # Optional, will default to "$TRAVIS_BUILD_DIR/Doxyfile"
-    - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
+  #  - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
-   - curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/run-clang-format.py > run-clang-format.py
 
 install:
    - arduino --install-library "Smartcar shield"
@@ -32,10 +24,6 @@ install:
    - arduino --install-library "ServoESP32"
 
 script:
-   - python run-clang-format.py -r .
    - build_platform esp32
 
-# Generate and deploy documentation
-after_success:
-  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/library_check.sh)
-  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+
