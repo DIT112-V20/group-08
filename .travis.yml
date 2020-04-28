@@ -26,4 +26,11 @@ install:
 script:
    - build_platform esp32
 
+<<<<<<< HEAD
 
+=======
+# Generate and deploy documentation
+after_success:
+#  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/library_check.sh)
+# - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+>>>>>>> d31ca42e38099f3b2a66d189692b201f129b2d27
