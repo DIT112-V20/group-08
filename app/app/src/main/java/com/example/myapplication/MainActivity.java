@@ -188,7 +188,48 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Click listeners for starting and stopping the eeg reading in the UI
+        switch(eggActive) {
+            case true:
+            controlEeg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                    controlEeg.setText(getString(R.string.start));
+
+                    stop();
+
+                }
+            });
+                break;
+            case false:
+                controlEeg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                    controlEeg.setText(getString(R.string.stop));
+
+                    start();
+
+                }
+            });
+                break;
+            default:
+                controlEeg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                    controlEeg.setText(getString(R.string.start));
+
+                    stop();
+
+                }
+            });
+                break;
+        
+ /*               
         if (eegActive == false) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -218,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+         */
 
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    goLeft();
+                    goCounterClockwise();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -246,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    goRight();
+                    goClockwise();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -369,12 +411,12 @@ public class MainActivity extends AppCompatActivity {
         Car.mmOutputStream.write(msg.getBytes());
     }
 
-    void goLeft() throws IOException {
+    void goCounterClockwise() throws IOException {
         String msg = "l";
         Car.mmOutputStream.write(msg.getBytes());
     }
 
-    void goRight() throws IOException {
+    void goClockwise() throws IOException {
         String msg = "r";
         Car.mmOutputStream.write(msg.getBytes());
     }
