@@ -28,13 +28,4 @@
         android:text="@string/headset"
         style="@style/connectBtn" />
 
-    <!-- Github link button -->
-    <ImageButton
-        android:id="@+id/githubBtn"
-        android:onClick="goToUrl"
-        android:src="@drawable/github"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        style="@style/githubBtn" />
-
 </LinearLayout>

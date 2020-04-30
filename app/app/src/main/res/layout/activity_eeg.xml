@@ -7,6 +7,8 @@
     android:background="@drawable/bg_main"
     tools:context=".EegActivity" >
 
+    <include layout="@layout/content_header" />
+
     <!-- EEG headset data display layout -->
 
     <include layout="@layout/content_eeg" />
@@ -20,7 +22,6 @@
         <!-- Header button layout -->
 
         <include layout="@layout/content_connect"/>
-        <include layout="@layout/content_switch"/>
 
         <!-- Car control buttons layout -->
         <include layout="@layout/content_controls" />

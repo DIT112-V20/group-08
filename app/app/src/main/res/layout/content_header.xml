@@ -16,6 +16,7 @@
     <!-- Github link button -->
     <ImageButton
         android:id="@+id/githubBtn"
+        android:onClick="goToUrl"
         android:src="@drawable/github"
         android:layout_alignParentRight="true"
         style="@style/GithubBtn" />
