@@ -228,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
                 break;
+         }
         
  /*               
         if (eegActive == false) {
