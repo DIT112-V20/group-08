@@ -28,7 +28,7 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
 
-public class MainActivity extends AppCompatActivity {
+public class EegActivity extends AppCompatActivity {
 
     static final String TAG = null;
     TextView tv_attention;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_eeg);
 
         final RelativeLayout eegLayout = (RelativeLayout) findViewById(R.id.eegLayout);
         tv_attention = (TextView) findViewById(R.id.tv_attention);
