@@ -41,9 +41,9 @@ public class EegActivity extends AppCompatActivity {
 
         tv_attention = (TextView) findViewById(R.id.tv_attention);
 
-        // Buttons to connect to external hardware, in content_connect.xml
-        Button btn_connectcar = findViewById(R.id.connect_car);
-        Button connectBtnH = findViewById(R.id.connect_headset);
+        // Buttons to connect to external hardware, in content_header.xml
+        Button btn_connectcar = findViewById(R.id.connectCarBtn);
+        Button connectBtnH = findViewById(R.id.connectHeadsetBtn);
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);

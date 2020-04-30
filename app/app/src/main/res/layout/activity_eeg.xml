@@ -21,8 +21,6 @@
 
         <!-- Header button layout -->
 
-        <include layout="@layout/content_connect"/>
-
         <!-- Car control buttons layout -->
         <include layout="@layout/content_controls" />
 
