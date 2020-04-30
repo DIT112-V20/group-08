@@ -8,4 +8,6 @@
 
     <include layout="@layout/content_header" />
 
+    <include layout="@layout/content_controls" />
+
 </LinearLayout>

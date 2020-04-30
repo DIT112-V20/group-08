@@ -15,21 +15,21 @@
         android:id="@+id/tv_attention"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="4dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="20dp"
         android:text="TextView" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <!-- Header button layout -->
-
-        <!-- Car control buttons layout -->
-        <include layout="@layout/content_controls" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/controlEegBtn"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/tv_attention"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_eegcontrol_start"
+        android:textSize="35dp"
+        android:textColor="#fff"
+        android:text="@string/start"
+        android:fontFamily="@font/nunito_extrabold" />
 
 </RelativeLayout>
