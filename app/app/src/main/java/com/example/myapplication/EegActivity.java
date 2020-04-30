@@ -22,7 +22,7 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
 
-public class MainActivity extends AppCompatActivity {
+public class EegActivity extends AppCompatActivity {
 
     static final String TAG = null;
     TextView tv_attention;
