@@ -41,38 +41,8 @@ public class EegActivity extends AppCompatActivity {
 
         tv_attention = (TextView) findViewById(R.id.tv_attention);
 
-        // Buttons to connect to external hardware, in content_header.xml
-        Button btn_connectcar = findViewById(R.id.connectCarBtn);
-        Button connectBtnH = findViewById(R.id.connectHeadsetBtn);
-
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
-
-        // Click listeners for connecting to external hardware
-        btn_connectcar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Car.findBT("Car");
-                try {
-                    Car.openBT();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        connectBtnH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Headset.findBT("Force Trainer II");
-                try {
-                    Headset.openBT();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        });
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
@@ -188,14 +158,6 @@ public class EegActivity extends AppCompatActivity {
             }
         };
     };
-
-    //go to webpage through the link in GitHub shape
-    public void goToUrl(View view) {
-        String url = "https://github.com/DIT112-V20/group-08";
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
-    }
 
     public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
 
