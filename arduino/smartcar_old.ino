@@ -12,10 +12,9 @@ const int GYROSCOPE_OFFSET = 37;
 const unsigned long PRINT_INTERVAL = 100;
 unsigned long previousPrintout     = 0;
 const auto pulsesPerMeter = 600;
-const int fSpeed   = 50;  // 50% of the full speed forward
-const int bSpeed   = -50; // 50% of the full speed backward
-const int lDegrees = -55; // degrees to turn left
-const int rDegrees = 55;  // degrees to turn right
+const int fSpeed    = 50;  // 50% of the full speed forward
+const int bSpeed    = -50; // 50% of the full speed backward
+const int tankSpeed = 55;  // Speed at which the wheels turn on the spot
 const int flDegrees = -28; // degrees to turn forward left
 const int frDegrees = 28;  // degrees to turn forward right
 const int blDegrees = -152; // degrees to turn backward left
@@ -132,13 +131,13 @@ void handleInput()
              
     switch (input){
 
-        case 'l': // rotate counter-clockwise going forward
-            car.setSpeed(fSpeed);
-            car.setAngle(lDegrees);
+        case 'l': // turn counterclockwise
+            car.overrideMotorSpeed(-tankSpeed, tankSpeed);
+            car.setAngle(0);
             break;
-        case 'r': // turn clock-wise
-            car.setSpeed(fSpeed);
-            car.setAngle(rDegrees);
+        case 'r': // turn clockwise
+            car.overrideMotorSpeed(tankSpeed, -tankSpeed);
+            car.setAngle(0);
             break;
         case 'f': // go ahead
             car.setSpeed(fSpeed);
@@ -148,20 +147,19 @@ void handleInput()
             car.setSpeed(bSpeed);
             car.setAngle(0);
             break;
-
-        case 'fr': // go forward right
+        case 'e': // go forward right
             car.setSpeed(fSpeed);
             car.setAngle(frDegrees);
             break;
-        case 'fl': // go forward left
+        case 'q': // go forward left
             car.setSpeed(fSpeed);
             car.setAngle(flDegrees);
             break;
-        case 'br': // go backward right
+        case 'c': // go backward right
             car.setSpeed(bSpeed);
             car.setAngle(brDegrees);
             break;
-        case 'bl': // go backward left
+        case 'z': // go backward left
             car.setSpeed(bSpeed);
             car.setAngle(blDegrees);
             break;
