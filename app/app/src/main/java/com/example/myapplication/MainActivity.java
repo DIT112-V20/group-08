@@ -3,25 +3,19 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.net.Uri; //for hyperlink in url
-import android.bluetooth.BluetoothAdapter;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
 
-import java.io.OutputStream;
-import java.util.Set;
 import java.io.IOException;
-import java.util.UUID;
 
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
@@ -136,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                controlEeg.setBackground(getDrawable(R.drawable.btn_eegcontrol_stop));
                 controlEeg.setText(getString(R.string.stop));
 
                 eegActive = true;
@@ -152,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                controlEeg.setBackground(getDrawable(R.drawable.btn_eegcontrol_start));
                 controlEeg.setText(getString(R.string.start));
 
                 eegActive = false;

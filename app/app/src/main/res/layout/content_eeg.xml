@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/bg_eegcontrol_start"
+        android:background="@drawable/btn_eegcontrol_start"
         android:textSize="25dp"
         android:textColor="#fff"
         android:text="@string/start"

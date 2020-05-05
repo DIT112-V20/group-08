@@ -21,7 +21,7 @@
     <style name="controlBtn">
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">120dp</item>
-        <item name="android:background">@drawable/bg_controlbtn</item>
+        <item name="android:background">@drawable/btn_nav_controls</item>
     </style>
 
     <!-- NEW HEADER -->
