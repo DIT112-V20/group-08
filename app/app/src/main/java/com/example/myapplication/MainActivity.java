@@ -53,30 +53,10 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-        // Header buttons in content_header.xml
+        // Connect app to smart car
         final Button connectCar = findViewById(R.id.connectCarBtn);
         final Button carConnected = findViewById(R.id.connectedCarBtn);
 
-        final Button connectHeadset = findViewById(R.id.connectHeadsetBtn);
-        final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
-
-        final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
-        final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
-
-        // Activity content id's for changing content in main activity
-        final RelativeLayout eegContent = findViewById(R.id.eegContent);
-        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
-
-        // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
-        final Button controlEeg = findViewById(R.id.controlEegBtn);
-
-        // Smart car control buttons in content_controls.xml
-        final ImageButton forward = findViewById(R.id.forwardBtn);
-        final ImageButton backward = findViewById(R.id.backwardBtn);
-        final ImageButton left = findViewById(R.id.leftBtn);
-        final ImageButton right = findViewById(R.id.rightBtn);
-
-        // Click listeners for connecting to external hardware
         connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
             carConnected.setVisibility(View.VISIBLE);
         }
 
+        // Connect app to headset
+        final Button connectHeadset = findViewById(R.id.connectHeadsetBtn);
+        final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
+
         connectHeadset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Click listeners for changing activity content
+        final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
+        final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
+
+        final RelativeLayout eegContent = findViewById(R.id.eegContent);
+        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
+
         joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Click listeners for starting and stopping the eeg reading in the UI
+        final Button controlEeg = findViewById(R.id.controlEegBtn);
 
         if (carIsConnected == true && headsetIsConnected == true && eegActive == false) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
@@ -148,25 +139,27 @@ public class MainActivity extends AppCompatActivity {
                 start();
                 }
             });
-        }
-
-        // TODO: Bug! The button doesn't switch back from "stop" to "start"?
-
-        if (eegActive == true) {
+        } else if (eegActive == true) {
+            // TODO: Bug! The button doesn't switch back from "stop" to "start"?
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                controlEeg.setBackground(getDrawable(R.drawable.btn_eegcontrol_start));
-                controlEeg.setText(getString(R.string.start));
+                    controlEeg.setBackground(getDrawable(R.drawable.btn_eegcontrol_start));
+                    controlEeg.setText(getString(R.string.start));
 
-                eegActive = false;
+                    eegActive = false;
 
-                stop();
+                    stop();
                 }
             });
         }
 
         // Click listeners for the smart car navigation control buttons
+        final ImageButton forward = findViewById(R.id.forwardBtn);
+        final ImageButton backward = findViewById(R.id.backwardBtn);
+        final ImageButton left = findViewById(R.id.leftBtn);
+        final ImageButton right = findViewById(R.id.rightBtn);
+
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -256,11 +249,13 @@ public class MainActivity extends AppCompatActivity {
         public void onChecksumFail(byte[] payload, int length, int checksum) { //not used
         }
 
+        //Method is used to determine what kind of data we want to gather, and what we use the data for
         private Handler LinkDetectedHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg) { //Method is used to determine what kind of data we want to gather, and what we use the data for
+            public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case MindDataType.CODE_ATTENTION: // Here we establish the data we want to gather
+                    // Here we establish the data we want to gather
+                    case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
                         if (msg.arg1 > 60) {
@@ -293,7 +288,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(launchBrowser);
     }
 
-    public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
+    // Here the data reader is being created
+    public TgStreamReader createStreamReader(BluetoothDevice bd) {
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
@@ -301,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         return tgStreamReader;
     }
 
-    // Car control buttons
+    // Car control button methods
     void goForward() throws IOException { //Buttons to steer the car
         String msg = "c";
         Car.mmOutputStream.write(msg.getBytes());
