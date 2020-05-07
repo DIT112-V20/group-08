@@ -107,7 +107,7 @@ void handleInput()
     int back = sensorB.getDistance(); 
     int front = sensor.readRangeContinuousMillimeters();
 
-    while(front != 0 && front < 200 || back != 0 && back < 20) { 
+    while((front != 0 && front < 200) || (back != 0 && back < 20)) { 
 
         while (bluetooth.available()){ input = bluetooth.read(); }
 
