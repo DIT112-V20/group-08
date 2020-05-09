@@ -23,12 +23,17 @@ void setup(void)
 {
     Serial.begin(115200);
     WiFi.softAP(ssid, password);
-    IPAddress local_ip(192, 168, 0, 10);
+    IPAddress local_ip(192, 168, 0, 10); 
     IPAddress gateway(192, 168, 0, 1);
     IPAddress subnet(255, 255, 255, 0);
 
     WiFi.config(local_ip, gateway, subnet);
     delay(100);
+
+    if (MDNS.begin("smartcar"))
+    {
+        Serial.println("MDNS responder started");
+    }
     
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
