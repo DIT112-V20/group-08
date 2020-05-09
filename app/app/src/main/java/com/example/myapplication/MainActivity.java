@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView animOne, animTwo, animThree, animFour;
 
     // For bluetooth connections
-    Connector Car = new Connector();
-    Connector Headset = new Connector();
+    BluetoothConnection Car = new BluetoothConnection();
+    BluetoothConnection Headset = new BluetoothConnection();
 
     boolean eegActive = false;
     boolean carIsConnected = false;
