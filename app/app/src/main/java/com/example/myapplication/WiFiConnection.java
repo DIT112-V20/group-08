@@ -40,7 +40,7 @@ public class WiFiConnection extends AppCompatActivity{
                     wifi.setWifiEnabled(true);
                 }
 
-                ConnectToNetworkWEP("SSID1", "Password1");
+                ConnectToNetworkWEP("smartcar", "123456789");
             }
         });
     }
@@ -67,8 +67,8 @@ public class WiFiConnection extends AppCompatActivity{
     {
         try {
             WifiConfiguration conf = new WifiConfiguration();
-            conf.SSID = "\"" + networkSSID + "\"";   // Please note the quotes. String should contain SSID in quotes
-            conf.wepKeys[0] = password;  //WEP password is in hex, we do not need to surround it with quotes.
+            conf.SSID = "\"" + smartcar + "\"";   
+            conf.wepKeys[0] = 123456789; 
             conf.wepTxKeyIndex = 0;
             conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             conf.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
