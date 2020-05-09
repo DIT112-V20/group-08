@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
-public class Connector {     //Used to connect the devices via bluetooth
+public class bluetoothConnection {     //Used to connect the devices via bluetooth
 
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
