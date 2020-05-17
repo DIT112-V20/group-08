@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,7 @@ import com.neurosky.connection.TgStreamReader;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     static final String TAG = null;
     TextView tv_attention;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
+
+    LinearLayout joystickContent;
+    JoyStick joyStick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,32 +83,28 @@ public class MainActivity extends AppCompatActivity {
         final RelativeLayout eegContent = findViewById(R.id.eegContent);
 
 
+        joystickContent = findViewById(R.id.joysticklayout);
+        joyStick = (JoyStick) findViewById(R.id.joy1);
+        joyStick.setPadColor(Color.parseColor("#55ffffff"));
+        joyStick.setPadBackground(R.drawable.icon_round_arrow);
+
+
+
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
-        // change fwd, bck... here
-
-
-
-        // Smart car control buttons in content_controls.xml
-        final ImageButton forward = findViewById(R.id.forwardBtn);
-        final ImageButton backward = findViewById(R.id.backwardBtn);
-        final ImageButton left = findViewById(R.id.leftBtn);
-        final ImageButton right = findViewById(R.id.rightBtn);
 
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
 
-
-
-        accelerometerEventListener = new SensorEventListener(){
+        accelerometerEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
 
                 int value = (int) sensorEvent.values[0];
-                value = (value *11);
+                value = (value * 11);
 
                 try {
                     Car.mmOutputStream.write(value);
@@ -135,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
-                else {
+                } else {
                     //do nothing
                 }
             }
@@ -155,8 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     headsetIsConnected = true;
                     connectHeadset.setVisibility(View.GONE);
                     headsetConnected.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     // do nothing
                 }
             }
@@ -164,33 +163,32 @@ public class MainActivity extends AppCompatActivity {
 
         // Click listeners for changing activity content
 
-      joystickContentBtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-           //   if (headsetIsConnected && carIsConnected) {
-//                    //joystickContent.setVisibility(View.VISIBLE);
-//                    eegContent.setVisibility(View.GONE);
-//
-//                    joystickContentBtn.setVisibility(View.GONE);
-//                    eegContentBtn.setVisibility(View.VISIBLE);
-//
-//                    if (eegActive) {
-//                        eegActive = false;
-//                        stopEeg();
-//                        stopGyro();
-//                    }
-//                }
-//                else {
-//                    // do nothing
-//                }
-                  SecondActivity.start(MainActivity.this);
-          }
-      });
-
-            eegContentBtn.setOnClickListener(new View.OnClickListener() {
+        joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // joystickContent.setVisibility(View.GONE);
+                if (headsetIsConnected && carIsConnected) {
+                    joystickContent.setVisibility(View.VISIBLE);
+                    eegContent.setVisibility(View.GONE);
+
+                    joystickContentBtn.setVisibility(View.GONE);
+                    eegContentBtn.setVisibility(View.VISIBLE);
+
+                    if (eegActive) {
+                        eegActive = false;
+                        stopEeg();
+                        stopGyro();
+                    }
+                } else {
+                    // do nothing
+                }
+
+            }
+        });
+
+        eegContentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // joystickContent.setVisibility(View.GONE);
                 eegContent.setVisibility(View.VISIBLE);
 
                 joystickContentBtn.setVisibility(View.VISIBLE);
@@ -199,78 +197,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Click listeners for starting and stopping the eeg reading in the UI
-            controlEeg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (carIsConnected && headsetIsConnected && !eegActive) {
-                        controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
-                        controlEeg.setText(getString(R.string.stop));
-
-                        eegActive = true;
-
-                        startAnimation();
-                        startEeg();
-                        startGyro();
-
-                    }
-                    else if (eegActive) {
-
-                                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                                controlEeg.setText(getString(R.string.start));
-                                eegActive = false;
-
-                                stopAnimation();
-                                stopEeg();
-                    }
-                }
-            });
-
-        // Click listeners for the smart car navigation control buttons
-        forward.setOnClickListener(new View.OnClickListener() {
+        controlEeg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goForward();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (carIsConnected && headsetIsConnected && !eegActive) {
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                    controlEeg.setText(getString(R.string.stop));
+
+                    eegActive = true;
+
+                    startAnimation();
+                    startEeg();
+                    startGyro();
+
+                } else if (eegActive) {
+
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                    controlEeg.setText(getString(R.string.start));
+                    eegActive = false;
+
+                    stopAnimation();
+                    stopEeg();
                 }
             }
         });
 
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goLeft();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goRight();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        backward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goBackward();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
-
     //stops reading gyroscope data
     public void stopGyro(){
         sensorManager.unregisterListener(accelerometerEventListener);
@@ -373,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Car control buttons
-    void goForward() throws IOException { //Buttons to steer the car
+    void goForward() throws IOException {
         int msg = 1;
         Car.mmOutputStream.write(msg);
     }
@@ -449,8 +401,5 @@ public class MainActivity extends AppCompatActivity {
             animationHandler.postDelayed(pulseAnimation, 2500);
         }
     };
-}
-
-
 
 

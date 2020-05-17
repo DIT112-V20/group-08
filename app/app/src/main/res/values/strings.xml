@@ -11,6 +11,5 @@
     <!-- Strings for eeg reading start stop button -->
     <string name="start">Start</string>
     <string name="stop">Stop</string>
-    <string name="desc" />
 
 </resources>
