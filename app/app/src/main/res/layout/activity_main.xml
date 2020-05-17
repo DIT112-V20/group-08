@@ -11,6 +11,11 @@
 
     <include layout="@layout/content_eeg" />
 
-    <include layout="@layout/content_joystick" />
+    <include
+        layout="@layout/content_joystick"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
 
 </LinearLayout>
+
+

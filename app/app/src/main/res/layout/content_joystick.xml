@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/joystickContent"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:visibility="gone" >
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--com.erz.joystick.GameView
+        android:id="@+id/game"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" -->
+
+    <com.example.myapplication.JoyStick
+        android:id="@+id/joy1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"/>
+
+    <com.example.myapplication.JoyStick
+        android:id="@+id/joy2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom|right"/>
+
+
+
+
+
 
     <!-- This button is a white space filler which all other buttons align around -->
+
     <Button
         android:id="@+id/whitespace"
         android:layout_width="120dp"
@@ -15,35 +39,39 @@
         android:visibility="invisible" />
 
     <!-- Forward button -->
+
+    <!-- Backward button -->
+
+    <!-- Left button -->
+
+    <!-- Right button -->
+
     <ImageButton
         android:id="@+id/forwardBtn"
         style="@style/controlBtn"
         android:layout_above="@id/whitespace"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
         android:src="@drawable/nav_forward" />
 
-    <!-- Backward button -->
     <ImageButton
         android:id="@+id/backwardBtn"
         style="@style/controlBtn"
         android:layout_below="@id/whitespace"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-257dp"
         android:src="@drawable/nav_backward" />
 
-    <!-- Left button -->
     <ImageButton
         android:id="@+id/leftBtn"
         style="@style/controlBtn"
-        android:layout_centerVertical="true"
+        android:layout_marginRight="-83dp"
         android:layout_toLeftOf="@id/whitespace"
         android:src="@drawable/nav_left" />
 
-    <!-- Right button -->
     <ImageButton
         android:id="@+id/rightBtn"
         style="@style/controlBtn"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="31dp"
         android:layout_toRightOf="@id/whitespace"
         android:src="@drawable/nav_right" />
 
-</RelativeLayout>
+</FrameLayout>

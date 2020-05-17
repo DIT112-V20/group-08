@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
@@ -8,22 +7,27 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Button;
-import java.io.IOException;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.neurosky.connection.ConnectionStates;
+import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
-import com.neurosky.connection.DataType.MindDataType;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     // For pulse animation
     private Handler animationHandler;
     private ImageView animOne, animTwo, animThree, animFour;
+
 
     // For bluetooth connections
     Connector Car = new Connector();
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         initAnimation();
 
+
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
         final Button carConnected = findViewById(R.id.connectedCarBtn);
@@ -65,14 +71,19 @@ public class MainActivity extends AppCompatActivity {
         final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
 
         final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
+
         final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
 
         // Activity content id's for changing content in main activity
         final RelativeLayout eegContent = findViewById(R.id.eegContent);
-        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
+
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
+
+        // change fwd, bck... here
+
+
 
         // Smart car control buttons in content_controls.xml
         final ImageButton forward = findViewById(R.id.forwardBtn);
@@ -83,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+
+
 
         accelerometerEventListener = new SensorEventListener(){
             @Override
@@ -149,32 +163,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Click listeners for changing activity content
-        joystickContentBtn.setOnClickListener(new View.OnClickListener() {
+
+      joystickContentBtn.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+           //   if (headsetIsConnected && carIsConnected) {
+//                    //joystickContent.setVisibility(View.VISIBLE);
+//                    eegContent.setVisibility(View.GONE);
+//
+//                    joystickContentBtn.setVisibility(View.GONE);
+//                    eegContentBtn.setVisibility(View.VISIBLE);
+//
+//                    if (eegActive) {
+//                        eegActive = false;
+//                        stopEeg();
+//                        stopGyro();
+//                    }
+//                }
+//                else {
+//                    // do nothing
+//                }
+                  SecondActivity.start(MainActivity.this);
+          }
+      });
+
+            eegContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (headsetIsConnected && carIsConnected) {
-                    joystickContent.setVisibility(View.VISIBLE);
-                    eegContent.setVisibility(View.GONE);
-
-                    joystickContentBtn.setVisibility(View.GONE);
-                    eegContentBtn.setVisibility(View.VISIBLE);
-
-                    if (eegActive) {
-                        eegActive = false;
-                        stopEeg();
-                        stopGyro();
-                    }
-                }
-                else {
-                    // do nothing
-                }
-            }
-        });
-
-        eegContentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                joystickContent.setVisibility(View.GONE);
+               // joystickContent.setVisibility(View.GONE);
                 eegContent.setVisibility(View.VISIBLE);
 
                 joystickContentBtn.setVisibility(View.VISIBLE);
@@ -353,6 +369,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return tgStreamReader;
     }
+
+
 
     // Car control buttons
     void goForward() throws IOException { //Buttons to steer the car
