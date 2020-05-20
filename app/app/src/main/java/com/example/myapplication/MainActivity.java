@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
                         if (msg.arg1 > 0) {
                         pulse.setConcentration((msg.arg1 / 10) + 1);
                         } else {
-                            pulse.setConcentration(0);
+                            pulse.setConcentration(1);
                         }
                         break;
                     default:
