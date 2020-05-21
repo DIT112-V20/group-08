@@ -52,6 +52,7 @@
         <item name="android:textColor">@color/grey</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
+        <item name="android:drawableLeft">@drawable/icon_bluetooth_disconnected</item>
     </style>
 
     <style name="connectedBtn">
@@ -63,6 +64,7 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:drawableLeft">@drawable/icon_bluetooth_connected</item>
     </style>
 
     <style name="SwitchActivityBtn">
