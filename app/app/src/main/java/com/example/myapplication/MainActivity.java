@@ -318,6 +318,25 @@ public class MainActivity extends AppCompatActivity {
         tgStreamReader = null;
     }
 
+    // Method for animation changes
+    public void showConcentration(final int eeg) {
+        Runnable animationChange = new Runnable() {
+            @Override
+            public void run() {
+
+                // Set concentration level in PulseView
+                do {
+                    pulse.setConcentration((eeg / 10) + 1);
+                }
+                while ((eeg > 0) && (eeg < 100));
+
+            }
+        };
+
+        Thread animationInteractionThread = new Thread(animationChange);
+        animationInteractionThread.start();
+    }
+
     // Handles data received from headset
     public TgStreamHandler callback = new TgStreamHandler() {
 
@@ -357,11 +376,12 @@ public class MainActivity extends AppCompatActivity {
                     // Here we establish the data we want to gather
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
+
+                        // Changes UI eeg TextView
                         tv_attention.setText("" + msg.arg1);
 
-                        // Animation pulse change
-                        do { pulse.setConcentration((msg.arg1 / 10) + 1); }
-                        while((msg.arg1 > 0) && (msg.arg1 < 100));
+                        // Changes the animation to reflect eeg
+                        showConcentration(msg.arg1);
 
                         if (msg.arg1 > 59) {
                             int msgn = 9; // forward
