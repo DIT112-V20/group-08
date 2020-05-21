@@ -329,7 +329,6 @@ public class MainActivity extends AppCompatActivity {
                     pulse.setConcentration((eeg / 10) + 1);
                 }
                 while ((eeg > 0) && (eeg < 100));
-
             }
         };
 
