@@ -8,6 +8,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Process;
 
 import androidx.annotation.Nullable;
 
@@ -16,10 +19,14 @@ public class PulseView extends View {
     // For painting the circles
     private Paint paint;
     private float maxRadius;
+    private float currentRadius;
     private float initialRadius;
     private float pulseGap;
     Resources res = getResources();
     int color = res.getColor(R.color.turquoise);
+
+    private float centerX;
+    private float centerY;
 
     // For animation interaction
     private int concentration;
@@ -29,8 +36,10 @@ public class PulseView extends View {
 
     // For animation
     private ValueAnimator pulseAnimator;
+    private Handler animationHandler;
     private float pulseOffset;
     private int initialAlpha;
+    private int currentAlpha;
     private int fade;
     private long duration;
 
@@ -63,6 +72,7 @@ public class PulseView extends View {
         this.pulseGap = 100f;
 
         // For animation interaction
+        this.animationHandler = animationHandler;
         this.concentration = 1;
         this.minFade = 40;
         this.maxFade = 100;
@@ -112,22 +122,40 @@ public class PulseView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
 
-        maxRadius = getWidth() / 3 * 2;
-        float centerX = getX() + getWidth() / 2;
-        float centerY = getY() + getHeight() / 2;
+        animationHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                do {
+                    paint.setAlpha(currentAlpha);
+                    currentAlpha -= fade;
 
-        float currentRadius = initialRadius + pulseOffset;
-        int currentAlpha = initialAlpha;
+                    canvas.drawCircle(centerX, centerY, currentRadius, paint);
+                    currentRadius += pulseGap;
+                } while (currentRadius < maxRadius);
+            }
+        };
 
-        do {
-            paint.setAlpha(currentAlpha);
-            currentAlpha -= fade;
+        Runnable animationLoop = new Runnable() {
+            @Override
+            public void run() {
 
-            canvas.drawCircle(centerX, centerY, currentRadius, paint);
-            currentRadius += pulseGap;
-        } while (currentRadius < maxRadius);
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+                maxRadius = getWidth() / 3 * 2;
+                centerX = getX() + getWidth() / 2;
+                centerY = getY() + getHeight() / 2;
+
+                currentRadius = initialRadius + pulseOffset;
+                currentAlpha = initialAlpha;
+
+                animationHandler.sendEmptyMessage(0);
+            }
+        };
+
+        Thread animationLoopThread = new Thread(animationLoop);
+        animationLoopThread.start();
     }
 }
