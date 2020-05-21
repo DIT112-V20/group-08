@@ -354,11 +354,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-
                     // Here we establish the data we want to gather
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
+
+                        // Animation pulse change
+                        do { pulse.setConcentration((msg.arg1 / 10) + 1); }
+                        while((msg.arg1 > 0) && (msg.arg1 < 100));
+
                         if (msg.arg1 > 59) {
                             int msgn = 9; // forward
                             try {
@@ -371,13 +375,6 @@ public class MainActivity extends AppCompatActivity {
                                 Car.mmOutputStream.write(msgn);
                             } catch (IOException e) {
                             }
-                        }
-
-                         // This part changes the pulse animation on EEG change
-                        if (msg.arg1 > 0) {
-                        pulse.setConcentration((msg.arg1 / 10) + 1);
-                        } else {
-                            pulse.setConcentration(1);
                         }
                         break;
                     default:
