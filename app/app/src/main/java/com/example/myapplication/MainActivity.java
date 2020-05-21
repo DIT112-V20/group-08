@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Method for animation changes
     public void showConcentration(final int eeg) {
-        Runnable animationChange = new Runnable() {
+        Runnable animationInteraction = new Runnable() {
             @Override
             public void run() {
 
@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Thread animationInteractionThread = new Thread(animationChange);
+        Thread animationInteractionThread = new Thread(animationInteraction);
         animationInteractionThread.start();
     }
 
