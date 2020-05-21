@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
+import android.os.Process;
 
 import java.io.IOException;
 
@@ -323,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
         Runnable animationInteraction = new Runnable() {
             @Override
             public void run() {
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
                 // Set concentration level in PulseView
                 do {
